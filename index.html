@@ -1,711 +1,335 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        
-
-@font-face {
-    font-family: myFont;
-    src: url(font/Yamaka\ Personal\ Used.otf);
-}
-* {
-    margin: 0;
-    padding: 0;
-    font-family: myFont;
-}
-.slot-machine {
-    background:url(Background.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 1960px;
-    height: 1102.29px;
-    margin-left: auto;
-    margin-right: auto;
-}
-.slot-machine iframe{
-    width: 212px;
-    height: 120px;
-    mix-blend-mode: screen;
-    opacity: 80%;
-}
-.youtube1 iframe {
-    position: absolute;
-    margin-top: 250px;
-    margin-left: 833px;
-}
-.youtube2 iframe {
-    position: absolute;
-    margin-top: 250px;
-    margin-left: 15px;
-    background-color: rgb(184, 0, 0);
-}
-.youtube3 iframe {
-    position: absolute;
-    margin-top: 250px;
-    margin-left: 425px;
-    background-color: rgb(184, 0, 0);
-}
-.youtube4 iframe {
-    position: absolute;
-    margin-top: 250px;
-    margin-left: 1243;
-}
-.youtube5 iframe {
-    position: absolute;
-    margin-top: 250px;
-    margin-left: 1652px;
-}
-.DEMO {
-    position: absolute;  /* Posisi relatif terhadap .container */
-    top: 474px;           /* 50px dari atas .container */
-    left: 937.5px;         /* 100px dari kiri .container */
-}
-.Terpakai1 {
-    position: absolute;  /* Posisi relatif terhadap .container */
-    top: 474px;           /* 50px dari atas .container */
-    left: 138px;         /* 100px dari kiri .container */
-}
-.Terpakai2 {
-    position: absolute;  /* Posisi relatif terhadap .container */
-    top: 474px;           /* 50px dari atas .container */
-    left: 536px;         /* 100px dari kiri .container */
-}
-.Terpakai3 {
-    position: absolute;  /* Posisi relatif terhadap .container */
-    top: 474px;           /* 50px dari atas .container */
-    left: 1338px;         /* 100px dari kiri .container */
-}
-.Terpakai4 {
-    position: absolute;  /* Posisi relatif terhadap .container */
-    top: 474px;           /* 50px dari atas .container */
-    left: 1739px;         /* 100px dari kiri .container */
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slot 5x4</title>
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* BLOCK SCROLL */
+  height: 100%;
+  background:#111;
+  color:#fff;
+  font-family:Arial,sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
-#cash{
-    color: rgb(255, 255, 255);
-    position: absolute;
-    margin-top: 466.5px;
-    margin-left: 867px;
-    width: 47px;
-    height: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 12px;
-    text-align: center;
+.game-box{
+  background:#1b1b1b;
+  border-radius:16px;
+  padding:16px;
+  width:520px;       /* FIXED WIDTH */
+  box-sizing:border-box;
+  text-align:center;
 }
-#totalWinnings{
-    color: rgb(255, 255, 255);
-    position: absolute;
-    margin-top: 466.5px;
-    margin-left: 1067px;
-    width: 47px;
-    height: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 12px;
-    text-align: center;
-}
-.slots {
-    position: absolute;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 0;
-    width: 250px;
-    height: 105px;
-    margin-top: 515.64px;
-    margin-left: 854.96px;
-}
+h1{margin:0 0 10px}
 .slot{
-    width: 50px;
-    height: 35px;
-    border-radius: 5px;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:8px;
+  margin:10px 0;
+  position:relative;
+  width:500px;       /* FIXED WIDTH */
 }
-.slot .symbol-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: absolute;
-    top: 0;
-    transition: top 0.5s ease-in-out;
+.reel{
+  width:100%;
+  height:260px;
+  overflow:hidden;
+  background:#222;
+  border-radius:12px;
+  position:relative;
 }
-.symbol-container img {
-    width: 100%;
-    height: 100%;
+.reel.hover{ box-shadow:0 0 20px 6px #00ff99; }
+.cell{
+  height:65px;
+  font-size:32px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition: transform 0.5s linear;
 }
-@keyframes scroll {
-    0% { top: 0; }
-    100% { top: -300px; }
+.row-highlight{
+  position:absolute;
+  top:0;
+  height:65px;
+  border:2px solid #00ff99;
+  border-radius:8px;
+  pointer-events:none;
+  box-sizing:border-box;
+  opacity:0.8;
 }
-#topUpButton {
-position: absolute;
-margin-top: 685.5px;
-margin-left: 844.63px;
-width: 23px;
-height: 13px;
-font-size: 12px;
-color: transparent;
-background-color: transparent;
-}
-#autoSpin3 {
-    position: absolute;
-    margin-top: 647px;
-    margin-left: 931px;
-    width: 24px;
-    height: 13px;
-    justify-content: center;
-    align-items: center;
-    color: transparent;
-    background-color: transparent;
-}
+.info{margin-top:6px}
 
-#autoSpin5 {
-    position: absolute;
-    margin-top: 667px;
-    margin-left: 931px;
-    width: 24px;
-    height: 14px;
-    justify-content: center;
-    align-items: center;
-    color: transparent;
-    background-color: transparent;
+/* BARIS 1: saldo kiri, taruhan kanan */
+.row1{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:4px;
 }
+.balance-box{ min-width:150px; text-align:left; }
+.bet-box{
+  display:flex;
+  gap:6px;
+}
+.bet-buttons{
+  display:flex;
+  gap:6px;
+}
+.bet-buttons button{
+  width:60px;       /* FIXED WIDTH */
+  height:38px;      /* FIXED HEIGHT */
+  padding:0;
+  font-size:14px;
+  border:2px solid #00ff99;
+  border-radius:8px;
+  background:#111;
+  color:#fff;
+  cursor:pointer;
+  font-weight:bold;
+}
+.bet-buttons .active{ background:#00ff99; color:#000; }
 
-#autoSpin8 {
-    position: absolute;
-    margin-top: 689px;
-    margin-left: 931px;
-    width: 24px;
-    height: 14px;
-    justify-content: center;
-    align-items: center;
-    color: transparent;
-    background-color: transparent;
+/* Tombol Auto Spin / multiplier */
+.auto-spin-btn{
+  width:60px;      /* FIXED WIDTH */
+  height:38px;     /* FIXED HEIGHT */
+  padding:0;
+  border:2px solid #00ff99;
+  border-radius:4px;
+  background:#111;
+  color:#fff;
+  font-size:14px;
+  cursor:pointer;
+  font-weight:bold;
 }
-.auto-spin-display {
-    position: absolute;
-    margin-top: 643px;
-    margin-left: 980px;
-    width: 20px;
-    height: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 8px;
-    text-align: center;
-    color: white;
-}
-#bet2{
-    position: absolute;
-    margin-top: 647px;
-    margin-left: 1023px;
-    width: 24px;
-    height: 13px;
-    justify-content: center;
-    align-items: center;
-    color: transparent;
-    background-color: transparent;
-}
-#bet5{
-    position: absolute;
-    margin-top: 667px;
-    margin-left: 1024px;
-    width: 24px;
-    height: 14px;
-    justify-content: center;
-    align-items: center;
-    color: transparent;
-    background-color: transparent;
-}
-#bet12{
-    position: absolute;
-    margin-top: 689px;
-    margin-left: 1026px;
-    width: 24px;
-    height: 14px;
-    justify-content: center;
-    align-items: center;
-    color: transparent;
-    background-color: transparent;
-}
-#BetDisplay{
-    position: absolute;
-    margin-top: 681px;
-    margin-left: 980px;
-    width: 20px;
-    height: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 9px;
-    text-align: center;
-    color: white;
-}
-#spinButton{
-    position: absolute;
-    margin-top: 640px;
-    margin-left: 1060px;
-    width: 50px;
-    height: 65px;
-    background-color: transparent;
-    color: transparent;
-}
-button{
-    border: none;
-}
-.popup {
-    display: none;
-    flex-direction: column; /* Mengatur arah elemen anak secara vertikal */
-    justify-content: center; /* Pusatkan elemen secara vertikal */
-    align-items: center; /* Pusatkan elemen secara horizontal */
-    background-color: rgba(0, 0, 0, 0.8);
-    border-radius: 10px;
-    color: rgb(255, 0, 0);
-    font-size: 18px;
-    position: fixed; /* Ubah menjadi fixed untuk menempatkannya di tengah layar */
-    top: 50%; /* Setengah dari tinggi layar */
-    left: 50%; /* Setengah dari lebar layar */
-    transform: translate(-50%, -50%); /* Geser untuk benar-benar ke tengah */
-    z-index: 1;
-    padding: 20px; /* Tambahkan padding agar lebih rapi */
-    text-align: center; /* Rata tengah teks */
-}
+.auto-spin-btn.disabled{ background:#555; cursor:not-allowed; }
 
-.popup button {
-    margin-top: 20px;
-    background-color: #61dafb;
-    color: #282c34;
-    border: none;
-    padding: 5px 15px;
-    font-size: 10px;
-    border-radius: 5px;
-    cursor: pointer;
+/* BARIS 2: ON Free Spin kiri, SPIN kanan */
+.row2{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:6px;
 }
-
-.popup button:hover {
-    background-color: #00eeff;
+.free-spin-display{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  margin-top:-25px;
 }
-
-.cash {
-    display: flex;
-    font-size: 1.2rem;
-    margin-top: 80px;
+.free-spin-btn{
+  width:60px;       /* FIXED WIDTH */
+  height:32px;      /* FIXED HEIGHT */
+  padding:0;
+  border:2px solid #00ff99;
+  border-radius:4px;
+  background:#111;
+  color:#fff;
+  font-size:14px;
+  cursor:pointer;
+  font-weight:bold;
 }
+.free-spin-btn.active{ background:#00ff99; color:#000; }
 
-    </style>
+.spin-btn{
+  padding:12px 0;
+  font-size:20px;
+  font-weight:bold;
+  border:none;
+  border-radius:12px;
+  background:gold;
+  cursor:pointer;
+  width:120px;      /* FIXED WIDTH */
+  min-width:120px;
+}
+.spin-btn.disabled{ background:red; cursor:not-allowed; }
+</style>
 </head>
+
 <body>
-    <div class="slot-machine">
-        <!-- Youtube display -->
-        <div class="youtube1">
-            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/iNorJIpBqcE?autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></video>
-         </div>
-          <div class="youtube2">
-              <iframe width="100%" height="100%" src="https://www.youtube.com/embed/BZxYA51lhUI?autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></video>
-           </div>
-           <div class="youtube3">
-               <iframe width="100%" height="100%" src="https://www.youtube.com/embed/Sh-S9-UCBQM?autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></video>
-            </div>
-            <div class="youtube4">
-                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/hegE3N1IwNQ?autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></video>
-             </div>
-             <div class="youtube5">
-                 <iframe width="100%" height="100%" src="https://www.youtube.com/embed/zS9Id7A_Mdk?autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></video>
-              </div>
-              
-            <div class="RUNNING BLUE">
-                <div class="DEMO">
-                    <video width="85px" height="27px" controls autoplay loop>
-                        <source src="DEMO.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <div class="Terpakai1">
-                    <video width="85px" height="27px" controls autoplay loop>
-                        <source src="TERPAKAI.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <div class="Terpakai2">
-                    <video width="85px" height="27px" controls autoplay loop>
-                        <source src="TERPAKAI.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <div class="Terpakai3">
-                    <video width="85px" height="27px" controls autoplay loop>
-                        <source src="TERPAKAI.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <div class="Terpakai4">
-                    <video width="85px" height="27px" controls autoplay loop>
-                        <source src="TERPAKAI.mp4" type="video/mp4">
-                    </video>
-                </div>
-            </div>
-            
 
-        <!-- Cash display -->
-        <div id="cash" class="cash">100</div>
+<audio id="spinSound" src="slotspin.mp3" preload="auto"></audio>
 
-        <!-- Total winnings display -->
-        <div id="totalWinnings" class="totalwin">0</div>
+<div class="game-box">
+<h1>🎰 SLOT 5 × 4</h1>
+<div class="slot" id="slot"></div>
 
-    
-        <!-- Slots positioned above the bet buttons -->
-         <div class="slots" id="slots"></div>
-         
-         <!-- Add Top Up button below the Spin button -->
-         <button id="topUpButton">Top Up</button>
-         
-         <!-- Auto Spin Display -->
-         <div id="autoSpinDisplay" class="auto-spin-display">X0</div>
-         <!-- Auto Spin buttons -->
-         <button id="autoSpin3">3 Spins</button>
-         <button id="autoSpin5">5 Spins</button>
-         <button id="autoSpin8">8 Spins</button>
-
-         <!-- Display Selected Bet -->
-        <div id="BetDisplay" class="selected-bet">$2</div> 
-        <!-- Bet buttons -->
-        <button id="bet2">$2</button>
-        <button id="bet5">$5</button>
-        <button id="bet12">$12</button>
-    
-        <!-- Spin button -->
-        <button id="spinButton">Spin</button>
-
-        <!-- Popup message -->
-        <div class="popup" id="popupMessage">
-            <p id="popupText"></p>
-            <button onclick="closePopup()">ape ndak e</button>
-        </div>
+<div class="info">
+  <div class="row1">
+    <div class="balance-box">
+      💰 <span id="balance">Rp 10.000</span>
+      <span id="winFloat" class="win-float"></span>
     </div>
+    <div class="bet-box">
+      <button id="autoSpinBtn" class="auto-spin-btn" onclick="cycleAutoSpin()">x1</button>
+      <div class="bet-buttons">
+        <button onclick="setBet(100)">100</button>
+        <button onclick="setBet(400)">400</button>
+        <button onclick="setBet(1000)" class="active">1k</button>
+        <button onclick="setBet(20000)">20k</button>
+      </div>
+    </div>
+  </div>
 
-    <audio id="winSound" src="win-sound.mp3"></audio>
-    <audio id="loseSound" src="lose-sound.mp3"></audio>
-    <audio id="topUpSound" src="topup-sound.mp3"></audio>
-    <audio id="spin-sound" src="spin-sound.mp3"></audio>
+  <div class="row2">
+    <div class="free-spin-display">
+      <button id="toggleFreeSpin" class="free-spin-btn active" onclick="toggleFreeSpin()">ON</button>
+      <span id="freeSpinDisplay">Free Spins: 0</span>
+    </div>
+    <button id="spinBtn" class="spin-btn" onclick="spinAuto()">SPIN</button>
+  </div>
 
-    <script>
-        
-const symbols = [
-    "symbolitem1.png",
-    "symbolitem2.png",
-    "symbolitem3.png",
-    "symbolitem4.png",
-    "symbolitem5.png",
-    "symbolitem6.png"
-];
+</div>
 
-const slotsContainer = document.getElementById("slots");
-const popupMessage = document.getElementById("popupMessage");
-const popupText = document.getElementById("popupText");
-const cashDisplay = document.getElementById("cash");
-const bet2Button = document.getElementById("bet2");
-const bet5Button = document.getElementById("bet5");
-const bet12Button = document.getElementById("bet12");
-const selectedBetDisplay = document.getElementById("BetDisplay"); // Elemen display bet yang dipilih
-const spinButton = document.getElementById("spinButton");
-const autoSpinDisplay = document.getElementById("autoSpinDisplay");
+<script>
+const spinSound = document.getElementById("spinSound");
+spinSound.volume = 0.4;
+let audioUnlocked=false;
 
-let cash = 100;
-let totalWinnings = 0;
-let betAmount = 2; // Set default bet to $2
-const rows = 5;
-const cols = 3;
-let spinning = false;
+const SPIN_DURATION = 600;
+const rows=4, cols=5, cellH=65;
+const symbols=["🍒","🍋","🍉","🔔","💎","🃏","⭐"];
+let balance=10000, bet=1000, stops=new Array(cols).fill(0), freeSpins=0;
+let useFreeSpin=true, autoSpinModes=[1,4,9], autoSpinIndex=0, isAutoSpinning=false;
 
-bet2Button.classList.add("selected"); // Set default bet to $2
+const slot=document.getElementById("slot");
+const reels=[];
+const winFloat=document.getElementById("winFloat");
+const betButtons=document.querySelectorAll(".bet-buttons button");
+const autoSpinBtn=document.getElementById("autoSpinBtn");
+const spinBtn=document.getElementById("spinBtn");
+const toggleFreeSpinBtn=document.getElementById("toggleFreeSpin");
+const freeSpinDisplay=document.getElementById("freeSpinDisplay");
 
-for (let i = 0; i < rows * cols; i++) {
-    const slot = document.createElement("div");
-    slot.classList.add("slot");
-    slot.innerHTML = `
-        <div class="symbol-container">
-            ${symbols.map(symbol => `<img src="${symbol}" alt="Symbol" />`).join('')}
-        </div>
-    `;
-    slotsContainer.appendChild(slot);
-}
-// Fungsi untuk memperbarui tampilan bet yang dipilih
-function updateSelectedBetDisplay() {
-    selectedBetDisplay.textContent = `$${betAmount}`;
-}
-const slots = document.querySelectorAll(".slot");
-
-function resetSlots() {
-    slots.forEach(slot => {
-        const container = slot.querySelector(".symbol-container");
-        container.style.animation = "none"; // Stop current animation
-        container.style.top = "0"; // Reset position
-        container.innerHTML = ` 
-            ${symbols.map(symbol => `<img src="${symbol}" alt="Symbol" />`).join('')}
-            ${symbols.map(symbol => `<img src="${symbol}" alt="Symbol" />`).join('')}
-        `;
-    });
+// Setup reels
+for(let c=0;c<cols;c++){
+  const reel=document.createElement("div");
+  reel.className="reel";
+  const inner=document.createElement("div");
+  for(let i=0;i<rows*15;i++){
+    const cell=document.createElement("div");
+    cell.className="cell";
+    cell.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+    inner.appendChild(cell);
+  }
+  reel.appendChild(inner);
+  slot.appendChild(reel);
+  reels.push(inner);
 }
 
-function startSpinning() {
-    slots.forEach(slot => {
-        const container = slot.querySelector(".symbol-container");
-        container.style.animation = "scroll 1s linear infinite";
-    });
+function unlockAudio(){
+  if(audioUnlocked) return;
+  spinSound.play().then(()=>{ spinSound.pause(); spinSound.currentTime=0; audioUnlocked=true; }).catch(()=>{});
 }
-
-function stopSpinning() {
-    slots.forEach(slot => {
-        const container = slot.querySelector(".symbol-container");
-        container.style.animation = "none";
-
-        const finalSymbol = symbols[Math.floor(Math.random() * symbols.length)];
-        container.innerHTML = `<img src="${finalSymbol}" alt="Symbol" />`;
-    });
-}
-
-function checkWin() {
-    let resultMessage = "Bengak kau njeng!!";
-    let winningSymbol = null;
-    let winAmount = 0;
-
-    for (let row = 0; row < rows; row++) {
-        const rowSymbols = [];
-        for (let col = 0; col < cols; col++) {
-            const slot = slots[row * cols + col];
-            const symbol = slot.querySelector(".symbol-container img").src.split('/').pop();
-            rowSymbols.push(symbol);
-        }
-
-        // Check if the row has matching symbols
-        if (rowSymbols.every(symbol => symbol === rowSymbols[0])) {
-            winningSymbol = rowSymbols[0];
-
-            if (rowSymbols.length === 3) {
-                winAmount = 8 * betAmount;
-                resultMessage = `Hmm Lumayanlah`;
-            } else if (rowSymbols.length === 5) {
-                winAmount = 23 * betAmount;
-                resultMessage = `Hmm Boleh kau, gass agiklah!!`;
-            }
-            break;
-        }
-    }
-
-    if (winAmount > 0) {
-        cash += winAmount;
-        totalWinnings += winAmount; // Tambahkan kemenangan ke total
-        document.getElementById("totalWinnings").textContent = `${totalWinnings}`; // Perbarui tampilan
-    }
-
-    return resultMessage;
-}
-
-
-function showPopup(message) {
-    popupText.textContent = message;
-    popupMessage.style.display = "block";
-    cashDisplay.textContent = `${cash}`;
-
-    if (message === "Hmm Lumayanlah") {
-        const winSound = document.getElementById("winSound");
-        winSound.play();
-    } else if (message === "Bengak kau njeng!!") {
-        const loseSound = document.getElementById("loseSound");
-        loseSound.play();
-    }
-}
-
-function closePopup() {
-    popupMessage.style.display = "none";
-}
-// Tambahkan fungsi untuk mengubah latar belakang
-function changeBackgroundTemporarily() {
-    const slotMachine = document.querySelector('.slot-machine');
-
-    // Simpan latar belakang asli
-    const originalBackground = slotMachine.style.background;
-
-    // Ubah ke gambar saat spin
-    slotMachine.style.background = "url('Backgroundd.png') no-repeat center center";
-    slotMachine.style.backgroundSize = "cover";
-
-    // Kembalikan ke latar belakang asli setelah spin selesai
-    setTimeout(() => {
-        slotMachine.style.background = originalBackground;
-    }, 1000); // Sesuaikan waktu dengan durasi spin
-}
-
-function spinSlots() {
-    if (spinning || cash <= 0) return;
-    spinning = true;
-    if (cash < betAmount) {
-        showPopup("Top up njeng!!");
-        spinning = false;
-        return;
-    }
-
-    resetSlots();
-    startSpinning();
-    cash -= betAmount;
-    cashDisplay.textContent = `${cash}`;
-
-    // Panggil fungsi untuk mengubah latar belakang
-    changeBackgroundTemporarily();
-
-    // Mainkan suara spin
-    const spinSound = document.getElementById('spin-sound');
-    spinSound.currentTime = 0; // Mulai dari awal
-    spinSound.loop = true;    // Atur supaya suara loop
+function startSpinSound(){
+  if(audioUnlocked){
+    spinSound.currentTime=0;
     spinSound.play();
+    setTimeout(()=>{ spinSound.pause(); spinSound.currentTime=0; }, SPIN_DURATION);
+  }
+}
+function stopSpinSound(){ spinSound.pause(); spinSound.currentTime=0; }
 
-    setTimeout(() => {
-        stopSpinning();
-        spinning = false;
-        const resultMessage = checkWin();
-        showPopup(resultMessage);
-
-        // Hentikan suara spin
-        spinSound.pause();
-        spinSound.currentTime = 0; // Reset ke awal
-    }, 1000);
+function setBet(v){
+  bet=v;
+  betButtons.forEach(b=>b.classList.remove("active"));
+  [...betButtons].find(b=>{ if(b.textContent.replace("k","000")==v.toString()){ b.classList.add("active"); return true; }});  
 }
 
-
-// Perbarui event listener tombol bet agar memperbarui tampilan bet yang dipilih
-bet2Button.addEventListener("click", () => {
-    betAmount = 2;
-    updateSelectedBetButton(bet2Button);
-    updateSelectedBetDisplay(); // Perbarui display
-});
-
-bet5Button.addEventListener("click", () => {
-    betAmount = 5;
-    updateSelectedBetButton(bet5Button);
-    updateSelectedBetDisplay(); // Perbarui display
-});
-
-bet12Button.addEventListener("click", () => {
-    betAmount = 12;
-    updateSelectedBetButton(bet12Button);
-    updateSelectedBetDisplay(); // Perbarui display
-});
-
-function updateSelectedBetButton(selectedButton) {
-    bet2Button.classList.remove("selected");
-    bet5Button.classList.remove("selected");
-    bet12Button.classList.remove("selected");
-    selectedButton.classList.add("selected");
+function toggleFreeSpin(){
+  if(isAutoSpinning) return;
+  useFreeSpin = !useFreeSpin;
+  toggleFreeSpinBtn.classList.toggle("active", useFreeSpin);
+  toggleFreeSpinBtn.textContent = useFreeSpin ? "ON" : "OFF";
 }
 
-// Set default tampilan bet yang dipilih saat pertama kali dijalankan
-updateSelectedBetDisplay();
-
-
-// The spin button event listener to trigger the spinSlots function
-spinButton.addEventListener("click", spinSlots);
-const autoSpin3Button = document.getElementById("autoSpin3");
-const autoSpin5Button = document.getElementById("autoSpin5");
-const autoSpin8Button = document.getElementById("autoSpin8");
-
-function updateAutoSpinDisplay() {
-    autoSpinDisplay.textContent = `X${remainingAutoSpins}`;
+function cycleAutoSpin(){
+  if(autoSpinBtn.classList.contains("disabled")) return;
+  autoSpinIndex=(autoSpinIndex+1)%autoSpinModes.length;
+  autoSpinBtn.textContent="x"+autoSpinModes[autoSpinIndex];
 }
 
-// Event listeners for auto-spin selection
-autoSpin3Button.addEventListener("click", () => {
-    selectAutoSpin(3, autoSpin3Button);
-    updateAutoSpinDisplay(); // Perbarui tampilan Auto Spin
-});
+function spinAuto(){
+  unlockAudio();
+  if(isAutoSpinning) return;
+  toggleFreeSpinBtn.disabled = true;
+  toggleFreeSpinBtn.style.opacity = 0.5;
 
-autoSpin5Button.addEventListener("click", () => {
-    selectAutoSpin(5, autoSpin5Button);
-    updateAutoSpinDisplay(); // Perbarui tampilan Auto Spin
-});
+  let spins = autoSpinModes[autoSpinIndex];
+  if(balance < bet*spins && (!useFreeSpin || freeSpins === 0)){
+    highlightBalance();
+    toggleFreeSpinBtn.disabled = false;
+    toggleFreeSpinBtn.style.opacity = 1;
+    return;
+  }
 
-autoSpin8Button.addEventListener("click", () => {
-    selectAutoSpin(8, autoSpin8Button);
-    updateAutoSpinDisplay(); // Perbarui tampilan Auto Spin
-});
+  isAutoSpinning = true;
+  spinBtn.classList.add("disabled"); spinBtn.style.background="red";
+  autoSpinBtn.classList.add("disabled");
 
-let autoSpinCount = 0; // Store the selected auto-spin count
-let remainingAutoSpins = 0;
-
-// Store the number of auto spins selected by the user
-function selectAutoSpin(count, button) {
-autoSpinCount = count;
-remainingAutoSpins = count;
-
-// Highlight selected auto-spin button
-document.querySelectorAll("#autoSpin3, #autoSpin5, #autoSpin8").forEach(btn => btn.classList.remove("selected"));
-button.classList.add("selected");
-}
-
-// Update the spin behavior when clicking the normal spin button
-spinButton.addEventListener("click", () => {
-if (autoSpinCount > 0) {
-    executeAutoSpin(); // Start Auto Spin
-} else {
-    spinSlots(); // Normal spin
-}
-});
-
-// Function to execute the auto spin after user presses "Spin"
-function executeAutoSpin() {
-    if (remainingAutoSpins > 0 && cash >= betAmount) {
-        spinSlots();
-        remainingAutoSpins--;
-
-        updateAutoSpinDisplay(); // Perbarui tampilan Auto Spin
-
-        if (remainingAutoSpins > 0) {
-            setTimeout(executeAutoSpin, 1500); // 1.5 seconds delay between spins
-        } else {
-            resetAutoSpinButtons();
-            updateAutoSpinDisplay(); // Reset Auto Spin display
-        }
+  let count = spins;
+  function spinLoop(){
+    if(count>0){
+      count--;
+      highlightReelsGlow();
+      spin();
+      setTimeout(spinLoop, SPIN_DURATION + 100);
     } else {
-        remainingAutoSpins = 0;
-        autoSpinCount = 0;
-        resetAutoSpinButtons();
-        updateAutoSpinDisplay(); // Reset Auto Spin display
+      isAutoSpinning = false;
+      spinBtn.classList.remove("disabled"); spinBtn.style.background="gold";
+      autoSpinBtn.classList.remove("disabled");
+      toggleFreeSpinBtn.disabled = false;
+      toggleFreeSpinBtn.style.opacity = 1;
+      autoSpinBtn.textContent="x"+autoSpinModes[autoSpinIndex];
+      clearReelGlow();
     }
+  }
+  spinLoop();
 }
 
+function highlightReelsGlow(){
+  reels.forEach((reel,i)=>{
+    setTimeout(()=>{ reel.parentElement.classList.add("hover"); },i*80);
+    setTimeout(()=>{ reel.parentElement.classList.remove("hover"); },i*50+200);
+  });
+}
+function clearReelGlow(){ reels.forEach(r=>r.parentElement.classList.remove("hover")); }
 
-// Reset the auto-spin buttons after auto-spin completion
-function resetAutoSpinButtons() {
-document.querySelectorAll("#autoSpin3, #autoSpin5, #autoSpin8").forEach(btn => btn.classList.remove("selected"));
+function spin(){
+  document.querySelectorAll(".row-highlight").forEach(el=>el.remove());
+  if(useFreeSpin && freeSpins>0){ freeSpins--; updateFreeSpinDisplay(); }
+  else{ if(balance<bet){ highlightBalance(); return; } balance-=bet; updateBalance(); }
+  generateSpinResult();
+  reels.forEach((reel,i)=>{
+    reel.style.transition=`transform ${SPIN_DURATION/1000}s ease-out`;
+    stops[i]=Math.floor(Math.random()*(reel.children.length-rows));
+    reel.style.transform=`translateY(-${stops[i]*cellH}px)`;
+  });
+  setTimeout(startSpinSound, 10);
+  setTimeout(()=>{ stopSpinSound(); checkWin(SPIN_DURATION); }, SPIN_DURATION);
 }
 
-// Event listeners for auto-spin selection
-autoSpin3Button.addEventListener("click", () => selectAutoSpin(3, autoSpin3Button));
-autoSpin5Button.addEventListener("click", () => selectAutoSpin(5, autoSpin5Button));
-autoSpin8Button.addEventListener("click", () => selectAutoSpin(8, autoSpin8Button));
-
-
-// Add top-up functionality
-const topUpButton = document.getElementById("topUpButton");
-
-// Function to add funds to cash
-function topUp() {
-const amount = 5; // Set the top-up amount (you can customize this)
-cash += amount;
-cashDisplay.textContent = `${cash}`;
-showPopup(`Cieee saldo nambah $${amount}.`);
-
-// Play the top-up sound
-const topUpSound = document.getElementById("topUpSound");
-topUpSound.play();
+function generateSpinResult(){
+  for(let r=0;r<rows;r++){
+    for(let c=0;c<cols;c++){
+      reels[c].children[stops[c]+r].textContent=symbols[Math.floor(Math.random()*symbols.length)];
+    }
+  }
 }
 
-// Event listener for the Top Up button
-topUpButton.addEventListener("click", topUp);
-
-
-    </script>
+function checkWin(duration){}
+function showWinFloat(){}
+function updateBalance(){ document.getElementById("balance").textContent="Rp "+balance.toLocaleString("id-ID"); }
+function updateFreeSpinDisplay(){ freeSpinDisplay.textContent="Free Spins: "+freeSpins; }
+function highlightBalance(){
+  const b=document.getElementById("balance"); let c=0;
+  const i=setInterval(()=>{ b.style.color=b.style.color==="red"?"":"red"; if(++c>=6){clearInterval(i);b.style.color="";}},50);
+}
+</script>
 </body>
 </html>
