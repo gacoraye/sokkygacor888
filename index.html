@@ -105,7 +105,7 @@ const rows=4, cols=5, cellH=65;
 const symbols=["🍒","🍋","🍉","🔔","💎","🃏","⭐"];
 const symbolPayout={"🍒":2,"🍋":3,"🍉":5,"🔔":1,"💎":20,"🃏":1,"⭐":1};
 const lineBonus={3:1234,4:21012,5:123321};
-let spinMode = "L"; // "W" = menang, "L" = kalah, "N" = random
+let spinMode = "W"; // "W" = menang, "L" = kalah, "N" = random
 
 function setSpinMode(mode){
     if(["L","W","N"].includes(mode)){
@@ -373,3 +373,4 @@ updateBalance(); updateFreeSpinDisplay();
 </script>
 </body>
 </html>
+
