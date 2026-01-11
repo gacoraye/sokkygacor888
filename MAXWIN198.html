@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+html, body { margin:0; padding:0; overflow:hidden; height:100%; background:#111; color:#fff; font-family:Arial,sans-serif; display:flex; justify-content:center; align-items:center; }
+.game-box{ position:relative; width:360px; height:640px; background: url('SLOT MACHINE.jpg') no-repeat center center; background-size: cover;border-radius:5px; box-sizing:border-box; overflow:hidden; }
+.slot{ position:absolute; top:170px; left:30px; width:300px; height:260px; display:grid; grid-template-columns:repeat(5,60px); box-sizing:border-box; overflow: hidden;}
+.slot-overlay { position:absolute; top:170; left:30; width:100%; height:100%; pointer-events:none; z-index:1; }
+.reel {width:60px;height:260px;overflow:hidden;background: #aaaaaa00;border-radius: 5px;position: relative;transition: transform 0.4s ease-out;}
+.reel.spinning {transform: scale(1.3);}
+.reel.hover{box-shadow:inset 0 0 12px 4px rgba(255, 167, 63, 0.5),inset 0 0 25px 10px rgba(255, 167, 63, 0.5);}
+.cell{ height:65px; font-size:32px; display:flex; align-items:center; justify-content:center; }
+.balance-box{ position:absolute; top:450px; left:20px; background: url('buttonsbalance.png') no-repeat center center; border: none;  }
+.balance-chip{ width:100px; height:30px; display:flex; align-items:center; gap:6px; border-radius:5px; background:#11111100; color:#fff; font-size:14px; font-weight:bold; box-sizing:border-box; padding-left: 8px;}
+.balance-chip span{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.auto-spin-btn{ position:absolute; top:450px; left:125px; width:35px; height:30px; border-radius:5px; background: url('buttonas.png') no-repeat center center; border: none; color:#fff; font-size:14px; cursor:pointer; font-weight:bold; }
+.auto-spin-btn:active {transform: scale(0.95);background: url('buttonasclick.png') no-repeat center center; border: none;}
+.auto-spin-btn.disabled{ cursor:not-allowed; }
+.bet-buttons{ position:absolute; top:450px; left:165px; display:flex; gap:5px; }
+.bet-buttons button{ width:40px; height:30px; font-size:12px; border-radius:5px; background: url('buttonbet.png') no-repeat center center; border: none; cursor:pointer; font-weight:bold; color:#ffffff;  }
+.bet-buttons .active{background: url('buttonbetactive.png') no-repeat center center; border: none;  color:#000000; }
+.bet-buttons button.disabled { background: url('buttonbet.png') no-repeat center center; border: none; cursor:not-allowed; }
+.free-spin-box{ position:absolute; top:485px; left:30px; width:150px; height:30px; display:flex; align-items:center; justify-content:flex-start; gap:5px; border-radius:5px; box-sizing:border-box; background: url('buttonsfreespindisplay.png') no-repeat center center; border: none; overflow: visible; }
+.free-spin-btn{ width:40px; height:30px; border-radius:5px; background: url('buttonfreespin.png') no-repeat center center; border: none; color:#ffffff; font-size:10px; cursor:pointer; font-weight:bold; margin:0; }
+.free-spin-btn.active{ background: url('buttonfreespinactive.png') no-repeat center center; border: none; color:#000; }
+#freeSpinDisplay{ font-weight:bold; font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.spin-btn{ position:absolute; top:487.51px; left:187.5px; width:145px; height:50px; padding:12px 0; font-size:20px; font-weight:bold;border-radius:10px; background: url('buttonspin.png') no-repeat center center; border: none; cursor:pointer; }
+.spin-btn.disabled{ background: url('buttonspinblock.png') no-repeat center center; border: none; cursor:not-allowed; }
+.spin-btn:active{background: url('buttonspinclick.png') no-repeat center center; border: none;  color:#000000; }
+#winFloat {position: absolute;left: 50%;top: 50%;transform: translate(-50%, 0);color: #00ff99;font-weight: bold;opacity: 0;transition: transform 1s ease-out, opacity 1s ease-out;pointer-events: none;white-space: nowrap;z-index: 10;}
+.free-spin-float {position: absolute;left: 80%;top: 50%;transform: translate(-50%, 0);color: #00ff99;font-weight: bold;opacity: 0;transition: transform 1.5s ease-out, opacity 1s ease-out;pointer-events: none;white-space: nowrap;z-index: 10;}
+@keyframes winPulse {0%   { transform: scale(1) rotateY(0deg); } 50%  { transform: scale(1.5) rotateY(1080deg); } 100% { transform: scale(1) rotateY(1080deg); }}
+.cell.win {animation: winPulse 1.5s cubic-bezier(0.7, 0, 0.84, 0.99);}
+.WARNING { position: absolute; bottom: 30px; width: 100%; text-align: center; font-size: 10px; color: rgb(255, 255, 255); text-shadow: 1px 1px 4px #6b0000; pointer-events: none; z-index: 5; }
+.video-container {
+  top: 35.14px;
+  left: 38.74px;
+  position: absolute;
+  display: flex;
+  justify-content: center; /* rata tengah */
+  gap: 26.06px;               /* jarak antar video */
+  flex-wrap: nowrap;        /* jangan pindah baris */
+  overflow-x: auto;         /* jika lebar video melebihi slot, bisa scroll horizontal */
+}
+.video-container iframe {
+  width: 76.8px;   /* kecilkan supaya muat 3 video */
+  height: 43.2px;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 0 5px #000;
+}
+</style>
+</head>
+<body>
+<div class="game-box">
+<div class="video-container">
+  <iframe src="https://www.youtube.com/embed/iQBvQgL_XKw?autoplay=1&mute=1&rel=0&playsinline=1"
+    allow="autoplay; encrypted-media"
+    allowfullscreen></iframe>
+  <iframe src="https://www.youtube.com/embed/hBqfXSRmujQ?autoplay=1&mute=1&rel=0&playsinline=1"
+    allow="autoplay; encrypted-media"
+    allowfullscreen></iframe>
+  <iframe src="https://www.youtube.com/embed//U_0LjQVxxp8?autoplay=1&mute=1&rel=0&playsinline=1"
+    allow="autoplay; encrypted-media"
+    allowfullscreen></iframe>
+</div>
+  <div class="slot" id="slot">
+  <img src="SLOT MACHINE overlay1.png" alt="Overlay" class="slot-overlay"></div>
+  <div class="balance-box"><div class="balance-chip" style="position:relative;">
+💰<span id="balance"></span>
+      <span id="winFloat"></span>
+    </div>
+  </div>
+  <button class="auto-spin-btn" id="autoSpinBtn" onclick="cycleAutoSpin()">x1</button>
+  <div class="bet-buttons">
+    <button onclick="setBet(100)">100</button>
+    <button onclick="setBet(400)">400</button>
+    <button onclick="setBet(1000)" class="active">1k</button>
+    <button onclick="setBet(20000)">20k</button>
+  </div>
+  <div class="free-spin-box"><button id="toggleFreeSpin" class="free-spin-btn active" onclick="toggleFreeSpin()">ON</button><span id="freeSpinDisplay"></span>
+    <span id="freeSpinFloat" class="free-spin-float"></span>
+    </div>
+  <button class="spin-btn" id="spinBtn" onclick="spinAuto()"></button> 
+  <div class="WARNING">HANYA SEBAGAI PROMOSI WEB DESIGNER DAN SOSIALISASI!! <br>WA:+628-9560-0385-284 | 👁️:<span id="visitCount">0</span>People</div>
+</div>
+<audio id="spinSound" src="slotspin.mp3" preload="auto"></audio>
+<audio id="winSound" src="slotcoin.mp3" preload="auto"></audio>
+<audio id="freeSpinSound" src="slotfreespin.mp3" preload="auto"></audio>
+<script src="MVXWIN198.js"> </script>
+
+<script>
+const counterEl = document.getElementById('visitCount');
+const VISIT_KEY = 'sokkyteam-visited';
+const API_HIT = 'https://api.countapi.xyz/hit/sokkyteam-slot/visits';
+const API_GET = 'https://api.countapi.xyz/get/sokkyteam-slot/visits';
+
+function setLocalCount(val) {
+  localStorage.setItem('visit-fallback', val);
+  counterEl.textContent = val;
+}
+
+const localCount = localStorage.getItem('visit-fallback');
+if (localCount) counterEl.textContent = localCount;
+
+if (!localStorage.getItem(VISIT_KEY)) {
+  fetch(API_HIT)
+    .then(r => r.json())
+    .then(d => {
+      setLocalCount(d.value);
+      localStorage.setItem(VISIT_KEY, 'true');
+    })
+    .catch(() => {
+      if (!localCount) setLocalCount(1);
+    });
+} else {
+  fetch(API_GET)
+    .then(r => r.json())
+    .then(d => setLocalCount(d.value))
+    .catch(() => {
+      if (!localCount) setLocalCount(1);
+    });
+}
+</script>
+
+</body>
+</html>
