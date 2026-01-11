@@ -48,19 +48,19 @@ function cycleAutoSpin(){
 }
 function spinAuto(){
   if(isAutoSpinning) return;
+  let spins = autoSpinModes[autoSpinIndex];
+  if(balance < bet*spins && (!useFreeSpin || freeSpins===0)){ 
+    highlightBalance();
+    return;
+  }
   toggleFreeSpinBtn.disabled = true; 
   toggleFreeSpinBtn.style.opacity = 0.5;
   spinBtn.classList.add("disabled"); 
   autoSpinBtn.classList.add("disabled");
-  betButtons.forEach(b => b.disabled = true);
-  betButtons.forEach(b => b.classList.add("disabled"));
-  let spins = autoSpinModes[autoSpinIndex];
-  if(balance < bet*spins && (!useFreeSpin || freeSpins===0)){ 
-    highlightBalance(); 
-    toggleFreeSpinBtn.disabled=false; 
-    toggleFreeSpinBtn.style.opacity=1; 
-    return; 
-  }
+  betButtons.forEach(b => {
+    b.disabled = true;
+    b.classList.add("disabled");
+  });
   isAutoSpinning = true;
   let remainingSpins = spins;
   autoSpinBtn.textContent = "x" + remainingSpins;
